@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 
 interface = input('Enter interface type and number: ')
 vlan = input('Enter VLAN number: ')
