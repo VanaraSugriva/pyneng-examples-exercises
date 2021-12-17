@@ -20,3 +20,11 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+
+with open('CAM_table.txt') as f:
+    for line in f:
+        words = line.split()
+        print(words,'____')
+        if words and words[0].isdigit():
+        
+            print(words[0], words[)

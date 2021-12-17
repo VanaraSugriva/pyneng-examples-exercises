@@ -1,0 +1,21 @@
+---
+
+- name: Collect IOS facts
+  hosts: cisco_routers
+
+  tasks:
+
+    - name: Facts
+      ios_facts:
+        gather_subset: interfaces
+
+    - name: Create all_facts dir
+      file:
+        path: ./all_facts/
+        state: directory
+        mode: 0755
+
+    - name: Copy facts to files
+      copy:
+        content: "{{ ansible_net_interfaces['Ethernet0/0']['ipv4'] | to_nice_yaml }}"
+        dest: "all_facts/{{inventory_hostname}}_facts.yaml"

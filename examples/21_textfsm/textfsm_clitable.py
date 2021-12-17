@@ -1,23 +1,27 @@
-import clitable
+# или import clitable, если версия textfsm == 0.4
+from textfsm import clitable
+import sys
 
-output_sh_ip_route_ospf = open('output/sh_ip_route_ospf.txt').read()
+command = sys.argv[1]
+output_file = sys.argv[2]
 
-cli_table = clitable.CliTable('index', 'templates')
+with open(output_file) as output:
+    command_output = output.read()
 
-attributes = {'Command': 'show ip route ospf', 'Vendor': 'Cisco'}
+cli = clitable.CliTable("index", "templates")
+attributes = {"Command": command}
 
-cli_table.ParseCmd(output_sh_ip_route_ospf, attributes)
-print('CLI Table output:\n', cli_table)
+cli.ParseCmd(command_output, attributes)
 
-print('Formatted Table:\n', cli_table.FormattedTable())
+# print('Formatted Table:\n', cli.FormattedTable())
 
-data_rows = [list(row) for row in cli_table]
-header = list(cli_table.header)
+data_rows = [list(row) for row in cli]
+header = list(cli.header)
 
 print(header)
 for row in data_rows:
     print(row)
-'''
+"""
 Example:
 
 $ python textfsm_clitable.py
@@ -48,4 +52,4 @@ Formatted Table:
 ['10.4.4.4', '/32', '110', '21', ['10.0.13.3', '10.0.12.2', '10.0.14.4']]
 ['10.5.35.0', '/24', '110', '20', ['10.0.13.3']]
 
-'''
+"""

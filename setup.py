@@ -6,10 +6,15 @@ setup(
     py_modules=["pyneng"],
     install_requires=[
         "Click",
+        "pyyaml",
         "pytest",
-        "pytest-clarity",
+        "pytest-clarity==0.3.0a0",
         "pytest-json-report",
+        "requests",
+        "PyGithub",
         "six",
+        "jinja2",
+        "textfsm",
     ],
     entry_points="""
         [console_scripts]

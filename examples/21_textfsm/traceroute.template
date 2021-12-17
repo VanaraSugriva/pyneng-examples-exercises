@@ -1,6 +1,4 @@
-Value ID (\d+)
-Value Hop (\d+(\.\d+){3})
+Value ip ([\d.]+)
 
 Start
-  ^  ${ID} ${Hop} -> Record
-
+ ^ +\d+ +${ip} +\d+ -> Record

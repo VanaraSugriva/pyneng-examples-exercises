@@ -17,3 +17,10 @@
 """
 
 ignore = ["duplex", "alias", "configuration"]
+
+from sys import argv;
+with open(argv[1]) as src, open(argv[2], 'w') as dst:
+    for l in src:
+        if not l.startswith("!") and not(set(ignore) & set(l.split())):
+           dst.write(l) 
+dst.close()

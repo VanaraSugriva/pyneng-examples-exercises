@@ -12,30 +12,29 @@ from netmiko.ssh_exception import NetMikoAuthenticationException
 logging.getLogger("paramiko").setLevel(logging.WARNING)
 
 logging.basicConfig(
-    format = '%(threadName)s %(name)s %(levelname)s: %(message)s',
-    level=logging.INFO)
+    format="%(threadName)s %(name)s %(levelname)s: %(message)s", level=logging.INFO
+)
 
-start_msg = '===> {} Connection: {}'
-received_msg = '<=== {} Received: {}'
+start_msg = "===> {} Connection: {}"
+received_msg = "<=== {} Received: {}"
 
 
 def send_show(device_dict, command):
-    ip = device_dict['ip']
-    logging.info(start_msg.format(datetime.now().time(), ip))
-    if ip == '192.168.100.1': time.sleep(5)
+    host = device_dict["host"]
+    logging.info(start_msg.format(datetime.now().time(), host))
+    if host == "192.168.100.1":
+        time.sleep(5)
     with ConnectHandler(**device_dict) as ssh:
         ssh.enable()
         result = ssh.send_command(command)
-        logging.info(received_msg.format(datetime.now().time(), ip))
-    return {ip: result}
+        logging.info(received_msg.format(datetime.now().time(), host))
+    return {host: result}
 
 
 def send_command_to_devices(devices, command):
     data = {}
     with ProcessPoolExecutor(max_workers=2) as executor:
-        future_ssh = [
-            executor.submit(send_show, device, command) for device in devices
-        ]
+        future_ssh = [executor.submit(send_show, device, command) for device in devices]
         for f in as_completed(future_ssh):
             try:
                 result = f.result()
@@ -46,8 +45,7 @@ def send_command_to_devices(devices, command):
     return data
 
 
-if __name__ == '__main__':
-    with open('devices.yaml') as f:
+if __name__ == "__main__":
+    with open("devices.yaml") as f:
         devices = yaml.safe_load(f)
-    pprint(send_command_to_devices(devices, 'sh clock'))
-
+    pprint(send_command_to_devices(devices, "sh clock"))

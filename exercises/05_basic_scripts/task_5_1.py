@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 Задание 5.1
@@ -46,3 +47,18 @@ london_co = {
         "routing": True,
     },
 }
+
+dev = input('dev: ')
+print(london_co[dev])
+
+
+
+
+
+
+
+
+
+
+
+

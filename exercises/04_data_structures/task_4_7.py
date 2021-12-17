@@ -1,4 +1,6 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 """
 Задание 4.7
 
@@ -16,3 +18,6 @@
 """
 
 mac = "AAAA:BBBB:CCCC"
+mac = int(mac.replace(":",""), 16)
+print('{:b}'.format(mac))
+

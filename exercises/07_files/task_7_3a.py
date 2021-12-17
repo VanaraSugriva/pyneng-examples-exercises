@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 Задание 7.3a
@@ -23,3 +24,12 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+table = []
+with open('CAM_table.txt') as f:
+    for line in f:
+        line = line.split()
+        if line and line[0][1].isdigit():
+            vlan, mac, _, intf = line
+            table.append([int(vlan), mac, intf])
+for vlan, mac, intf in sorted(table):
+    print(f'{vlan:<12} {mac:24} {intf}')

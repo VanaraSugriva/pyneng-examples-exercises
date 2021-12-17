@@ -1,0 +1,14 @@
+---
+
+- name: Run cfg commands on routers
+  hosts: 192.168.100.1
+
+  tasks:
+
+    - name: Configure interfaces
+      ios_config:
+        parents:
+          - "interface Ethernet0/{{item}}"
+        lines:
+          - ip mtu 1400
+      with_items: [1, 2, 3]

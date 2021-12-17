@@ -1,0 +1,16 @@
+---
+
+- name: Collect IOS facts
+  hosts: 192.168.100.1
+
+  tasks:
+
+    - name: Read data from file
+      ios_l3_interfaces:
+        config: "{{ lookup('file', '192.168.100.1_l3_intf.json') | from_json }}"
+        state: deleted
+      register: result
+
+    - name: Show result
+      debug: var=result.commands
+
